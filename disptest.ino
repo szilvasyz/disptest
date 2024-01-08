@@ -3,7 +3,8 @@
 #include "U8g2lib.h"
 
 
-#define D1_I2C_ADDR 0x3C
+#define D1_I2C_ADDR 0x3D
+#define D2_I2C_ADDR 0x3C
 #define D23_RST 33
 #define D23_DC 32
 #define D2_CS 5
@@ -12,12 +13,16 @@
 #define COUNT(a) (sizeof(a) / sizeof(a[0]))
 
 
-U8G2_SSD1306_128X64_NONAME_F_HW_I2C disp1(U8G2_R0);
-U8G2_SSD1306_128X64_NONAME_F_4W_HW_SPI disp2(U8G2_R3, D2_CS, D23_DC, U8X8_PIN_NONE);
+//U8G2_SSD1306_128X64_NONAME_F_HW_I2C disp1(U8G2_R0);
+//U8G2_SSD1309_128X64_NONAME0_F_HW_I2C disp1(U8G2_R0);
+//U8G2_SSD1306_128X64_NONAME_F_HW_I2C disp2(U8G2_R0);
+//U8G2_SSD1306_128X64_NONAME_F_4W_HW_SPI disp2(U8G2_R3, D2_CS, D23_DC, U8X8_PIN_NONE);
 //U8G2_SH1107_64X128_F_4W_HW_SPI disp2(U8G2_R0, D2_CS, D23_DC, U8X8_PIN_NONE);
-U8G2_SSD1309_128X64_NONAME0_F_4W_HW_SPI disp3(U8G2_R3, D3_CS, D23_DC, U8X8_PIN_NONE);
+U8G2_SSD1309_128X64_NONAME0_F_4W_HW_SPI disp1(U8G2_R3, D2_CS, D23_DC, U8X8_PIN_NONE);
+U8G2_SSD1309_128X64_NONAME0_F_4W_HW_SPI disp2(U8G2_R3, D3_CS, D23_DC, U8X8_PIN_NONE);
 
-U8G2 *displays[] = {&disp1, &disp2, &disp3};
+//U8G2 *displays[] = {&disp1, &disp2, &disp3};
+U8G2 *displays[] = {&disp1, &disp2};
 
 void picture(U8G2 *disp, int n) {
 //  disp->setDisplayRotation(U8G2_R1);
@@ -35,6 +40,7 @@ void setup() {
   int n;
 
   disp1.setI2CAddress(D1_I2C_ADDR << 1);
+  disp2.setI2CAddress(D2_I2C_ADDR << 1);
   pinMode(D23_RST, OUTPUT);
   pinMode(D23_DC, OUTPUT);
   pinMode(D2_CS, OUTPUT);
@@ -51,7 +57,7 @@ void setup() {
   }
   
   //disp2.sendF("ca", 0xA0, 0xC8);
-  disp2.sendF("c", 0xC0);
+  //disp2.sendF("c", 0xC0);
 }
 
 
